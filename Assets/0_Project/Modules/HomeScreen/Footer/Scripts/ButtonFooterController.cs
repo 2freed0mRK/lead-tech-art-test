@@ -10,6 +10,7 @@ using UnityEngine.UI;
         [SerializeField] private Animator animator;
         [SerializeField] private Button footerBtn;
         [SerializeField] private bool lockOnAwake;
+        [SerializeField] private RectTransform _rectTransform;
 
         [Header("Events")]
         public UnityEvent<ButtonFooterController> OnButtonClickedEvent;
@@ -17,6 +18,10 @@ using UnityEngine.UI;
         //Internal
         private bool _selected;
         private bool _locked;
+
+        
+        public RectTransform Rect => _rectTransform;
+        public bool IsSelected => _selected;
 
         void Awake()
         {
