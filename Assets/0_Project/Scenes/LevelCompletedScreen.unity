@@ -572,7 +572,7 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 4556765535818376232, guid: e5e38f350fadf3d4297aba4c91a163a2, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 5532589005234513546, guid: e5e38f350fadf3d4297aba4c91a163a2, type: 3}
       propertyPath: m_Pivot.x
@@ -902,10 +902,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1496643660}
     m_Modifications:
-    - target: {fileID: 300513053711938635, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1351094704534639687, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -990,6 +986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainReward
       objectReference: {fileID: 0}
+    - target: {fileID: 7258074124496607086, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 340d7cec9a90fb2408fc27f4b8850c92, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
