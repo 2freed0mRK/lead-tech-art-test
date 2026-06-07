@@ -3,27 +3,55 @@ using TMPro;
 
 public class SineWaveTextAnimation : MonoBehaviour
 {
-    const float amplitude = 5f; // How far the letters float
-    const float frequency = 2f; // Speed of the float
-    const float waveOffset = 0.2f; // Offset between each letter
-
-    private TMP_Text textMesh;
+    [SerializeField] private bool isPlaying = false;
+    [SerializeField] private float amplitude = 5f; // How far the letters float
+    [SerializeField] private float frequency = 2f; // Speed of the float
+    [SerializeField] private float waveOffset = 0.2f; // Offset between each letter
+    [SerializeField] private TMP_Text textMesh;
     private Vector3[] originalVertices;
 
-    void Start()
+    private bool isOriginalPostion = false;
+
+    void Awake()
     {
         textMesh = GetComponent<TMP_Text>();
-        textMesh.ForceMeshUpdate();
-        originalVertices = textMesh.mesh.vertices;
+    }
+    void Start()
+    {
+        CacheOriginalVertices();
     }
 
-    void Update()
+    void CacheOriginalVertices()
     {
-        AnimateText();
+        textMesh.ForceMeshUpdate();
+        originalVertices = textMesh.mesh.vertices;
+        //textMesh.textInfo.CopyMeshInfoVertexData();
     }
+
+    void LateUpdate()
+    {
+        if(isPlaying)
+        {
+            AnimateText();
+        }
+
+        if(!isPlaying && !isOriginalPostion)
+        {
+            RestorePosition();
+        }
+    }
+
+    void RestorePosition()
+    {
+        var mesh = textMesh.mesh;
+        mesh.vertices = originalVertices;
+        textMesh.canvasRenderer.SetMesh(mesh);
+        isOriginalPostion = true;
+    } 
 
     void AnimateText()
     {
+        isOriginalPostion = false;
         // Get the updated mesh and vertices
         textMesh.ForceMeshUpdate();
         var mesh = textMesh.mesh;
