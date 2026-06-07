@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using System.Data.Common;
 using DG.Tweening;
 using UnityEngine;
 
 public class MenuFooterController : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private RectTransform indicator;
-    [SerializeField] private CanvasGroup indicatorCanvasGroup;
-    [SerializeField] private ButtonFooterController startSelected;
-    [SerializeField] private List<ButtonFooterController> footerButtons;
+    [SerializeField] private RectTransform _indicator;
+    [SerializeField] private CanvasGroup _indicatorCanvasGroup;
+    [SerializeField] private ButtonFooterController _startSelected;
+    [SerializeField] private List<ButtonFooterController> _footerButtons;
     [SerializeField] private Ease _animationEase = Ease.OutSine;
     [SerializeField] private float _animationDuration = 0.25f;
 
@@ -27,12 +26,20 @@ public class MenuFooterController : MonoBehaviour
 
     void Start()
     {
-        CalculateSize();
+        Inizilize();
+    }
 
-        if (startSelected != null)
+    private void Inizilize()
+    {
+        CalculateSize();
+        
+        _indicator.anchorMin = new Vector2(0, 0.5f);
+        _indicator.anchorMax = new Vector2(0, 0.5f);
+
+        if (_startSelected != null)
         {
-            _buttonSelected = startSelected;
-            startSelected.SetSelect(true);
+            _buttonSelected = _startSelected;
+            _startSelected.SetSelect(true);
             _hasSelection = true;
             
             MoveIndicator(0f);
@@ -40,7 +47,7 @@ public class MenuFooterController : MonoBehaviour
         else
         {
             _hasSelection = false;
-            indicatorCanvasGroup.alpha = 0f;
+            _indicatorCanvasGroup.alpha = 0f;
         }
         
         UpdateLayout(0f);
@@ -48,39 +55,40 @@ public class MenuFooterController : MonoBehaviour
 
     void OnEnable()
     {
-        foreach (var btn in footerButtons)
+        foreach (var btn in _footerButtons)
         {
-            btn.OnButtonClickedEvent.AddListener(OnButtonClickedEvent);
+            btn.OnButtonClickedEvent += OnButtonClickedEvent;
         }
     }
 
     void OnDisable()
     {
-        foreach (var btn in footerButtons)
+        foreach (var btn in _footerButtons)
         {
-            btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
+            btn.OnButtonClickedEvent -= OnButtonClickedEvent;
         }
     }
 
     private void CalculateSize()
     {
-        _sizeEqually = _layoutGroup.rect.size.x / footerButtons.Count;
+        if (_footerButtons.Count <= 2)
+        {
+            Debug.LogWarning("Icons in footer is less than 3");
+             return;
+        }
+        _sizeEqually = _layoutGroup.rect.size.x / _footerButtons.Count;
         _selectedSize = _sizeEqually * _selectedDelta;
-        Debug.LogFormat("{0}", _selectedSize);
-        _sizeUnselected = (_layoutGroup.rect.size.x - _selectedSize) / (footerButtons.Count - 1);
+        _sizeUnselected = (_layoutGroup.rect.size.x - _selectedSize) / (_footerButtons.Count - 1);
     }
 
     private void UpdateLayout(float duration)
     {
         var targetSize = _hasSelection ? _sizeUnselected : _sizeEqually;   
         float currentXOffset = 0f;
-        for (int i = 0; i < footerButtons.Count; i++)
+        for (int i = 0; i < _footerButtons.Count; i++)
         {
-            var btn = footerButtons[i];
+            var btn = _footerButtons[i];
             float elementWidth = btn.IsSelected ? _selectedSize : targetSize;
-            btn.Rect.anchorMin = new Vector2(0, 0.5f);
-            btn.Rect.anchorMax = new Vector2(0, 0.5f);
-            btn.Rect.pivot = new Vector2(0, 0.5f);
 
             btn.Rect.DOKill();
 
@@ -101,18 +109,18 @@ public class MenuFooterController : MonoBehaviour
 
     private void OnButtonClickedEvent(ButtonFooterController buttonClicked)
     {
-        if (footerButtons.Contains(buttonClicked))
+        if (_footerButtons.Contains(buttonClicked))
         {
             if (_buttonSelected == buttonClicked)
             {
                 _buttonSelected = null;
                 _currentSlot = null;
-                foreach (var btn in footerButtons)
+                foreach (var btn in _footerButtons)
                 {
                     btn.SetSelect(false);
                 }
 
-                indicatorCanvasGroup.alpha = 0f;
+                _indicatorCanvasGroup.alpha = 0f;
                 _hasSelection = false;
                 UpdateLayout(_animationDuration);
                 return;
@@ -120,7 +128,7 @@ public class MenuFooterController : MonoBehaviour
 
             _buttonSelected = buttonClicked;
 
-            foreach (var btn in footerButtons)
+            foreach (var btn in _footerButtons)
             {
                 btn.SetSelect(_buttonSelected == btn);
             }
@@ -136,32 +144,29 @@ public class MenuFooterController : MonoBehaviour
         if (_currentSlot == _buttonSelected.Rect) return;
         _currentSlot = _buttonSelected.Rect;
         
-        indicatorCanvasGroup.alpha = 1f;
+        _indicatorCanvasGroup.alpha = 1f;
         _hasSelection = true;
 
         float targetXPosition = 0f;
 
-        for (int i = 0; i < footerButtons.Count; i++)
+        for (int i = 0; i < _footerButtons.Count; i++)
         {
-            if (footerButtons[i] == _buttonSelected)
+            if (_footerButtons[i] == _buttonSelected)
             {
                 break;
             }
             targetXPosition += _sizeUnselected;
         }
 
-        if (indicator.pivot.x == 0.5f)
+        if (_indicator.pivot.x == 0.5f)
         {
             targetXPosition += _selectedSize * 0.5f;
         }
-        indicator.anchorMin = new Vector2(0, 0.5f);
-        indicator.anchorMax = new Vector2(0, 0.5f);
         
-        indicator.DOKill();
-        Debug.Log(targetXPosition);
-        indicator.DOAnchorPosX(targetXPosition, duration).SetEase(_animationEase).OnComplete(() =>
+        _indicator.DOKill();
+        _indicator.DOAnchorPosX(targetXPosition, duration).SetEase(_animationEase).OnComplete(() =>
         {
-            indicator.anchoredPosition = new Vector2(targetXPosition, indicator.anchoredPosition.y);
+            _indicator.anchoredPosition = new Vector2(targetXPosition, _indicator.anchoredPosition.y);
         });
     }
 }

@@ -87,10 +87,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec26a4518deebc44912aacd6bc47dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 4210034306804690767}
-  indicatorCanvasGroup: {fileID: 5934203505884806638}
-  startSelected: {fileID: 0}
-  footerButtons:
+  _indicator: {fileID: 4210034306804690767}
+  _indicatorCanvasGroup: {fileID: 5934203505884806638}
+  _startSelected: {fileID: 0}
+  _footerButtons:
   - {fileID: 7159697494493036609}
   - {fileID: 8052926196932422607}
   - {fileID: 5465648401885407284}

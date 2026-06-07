@@ -1302,18 +1302,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelCompletedTitle
       objectReference: {fileID: 0}
-    - target: {fileID: 6177963245692259896, guid: c67341c0ff6778a4388986c15e117b78, type: 3}
-      propertyPath: m_fontSize
-      value: 150.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6177963245692259896, guid: c67341c0ff6778a4388986c15e117b78, type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 6177963245692259896, guid: c67341c0ff6778a4388986c15e117b78, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7237631709446568882, guid: c67341c0ff6778a4388986c15e117b78, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

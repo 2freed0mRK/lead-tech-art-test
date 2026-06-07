@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 259760877011743574, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: m_Name
-      value: FooterButton_LeftFeature Variant
+      value: FooterButton_LeftFeature
       objectReference: {fileID: 0}
     - target: {fileID: 520565577050239058, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: m_text
@@ -110,6 +110,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7541925579803300659, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: lockOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541925579803300659, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
+      propertyPath: _lockOnAwake
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8622340842172760177, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}

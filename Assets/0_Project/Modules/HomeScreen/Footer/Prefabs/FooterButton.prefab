@@ -52,13 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bac40267aba00439f54abbe23e4a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 3023002948887563968}
-  footerBtn: {fileID: 547765931319856284}
-  lockOnAwake: 0
+  _animator: {fileID: 3023002948887563968}
+  _footerBtn: {fileID: 547765931319856284}
+  _lockOnAwake: 0
   _rectTransform: {fileID: 5244083550947242576}
-  OnButtonClickedEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  _image: {fileID: 740803242058425239}
+  _lock: {fileID: 3170493101957917960}
 --- !u!114 &547765931319856284
 MonoBehaviour:
   m_ObjectHideFlags: 0
